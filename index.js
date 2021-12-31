@@ -6,10 +6,11 @@ let port = process.env.PORT || 3000
 
 app.get("/", (req, res) => {
     res.send(`
-        ${req.hostname}
-        ${req.ip}
-        ${req.method}
-        ${req.httpVersion}
+        <p>Host: ${req.hostname}</p>
+        <p>IP: ${req.ip}</p>
+        <p>Path: ${req.path}</p>
+        <p>Method: ${req.method}</p>
+        <p>Agent: ${req.header('user-agent')}</p>
     `)
 })
 
