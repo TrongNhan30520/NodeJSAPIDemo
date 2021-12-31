@@ -5,7 +5,12 @@ const app = express()
 let port = process.env.PORT || 3000
 
 app.get("/", (req, res) => {
-    res.send(`<h1>/data & /data1</h1>`)
+    res.send(`
+        ${req.hostname}
+        ${req.ip}
+        ${req.method}
+        ${req.httpVersion}
+    `)
 })
 
 app.get("/data", (req, res) => {
