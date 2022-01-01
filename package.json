@@ -15,5 +15,8 @@
   },
   "engines": {
     "node": "16.13.1"
+  },
+  "devDependencies": {
+    "ipware": "^2.0.0"
   }
 }

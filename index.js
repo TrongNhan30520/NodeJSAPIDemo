@@ -2,19 +2,27 @@ const express = require('express')
 const importData = require("./data.json")
 const importData1 = require("./data1.json")
 const app = express()
+var getIP = require('ipware')().get_ip;
+var ipInfo;
+app.use(function(req, res, next) {
+    ipInfo = getIP(req);
+    console.log(ipInfo);
+    // { clientIp: '127.0.0.1', clientIpRoutable: false }
+    next();
+});
 let port = process.env.PORT || 3000
 
 
-app.get("/", (req, res) => {
-    var ip = (req.headers['x-forwarded-for'] || '').split(',').pop().trim() || 
-         req.connection.remoteAddress || 
-         req.socket.remoteAddress || 
-         req.connection.socket.remoteAddress
+ app.get("/", (req, res) => {
+//     var ip = (req.headers['x-forwarded-for'] || '').split(',').pop().trim() || 
+//          req.connection.remoteAddress || 
+//          req.socket.remoteAddress || 
+//          req.connection.socket.remoteAddress
 
-console.log(ip);
+//console.log(ip);
     res.send(`
         <p>Host: ${req.hostname}</p>
-        <p>IP: ${ip}</p>
+        <p>IP: ${ipInfo.clientIp}</p>
         <p>Path: ${req.path}</p>
         <p>Method: ${req.method}</p>
         <p>Agent: ${req.header('user-agent')}</p>
