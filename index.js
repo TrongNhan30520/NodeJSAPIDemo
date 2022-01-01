@@ -4,21 +4,17 @@ const importData1 = require("./data1.json")
 const app = express()
 let port = process.env.PORT || 3000
 
-var getIP = function(req) {
-    ipAddr = req.header('x-forwarded-for');
-    if (ipAddr){
-    var list = ipAddr.split(",")[list.length-1];
-    ipAddr = list;
-    } else {
-    ipAddr = req.connection.remoteAddress;
-    }
-    return ipAddr;
-}
 
 app.get("/", (req, res) => {
+    var ip = (req.headers['x-forwarded-for'] || '').split(',').pop().trim() || 
+         req.connection.remoteAddress || 
+         req.socket.remoteAddress || 
+         req.connection.socket.remoteAddress
+
+console.log(ip);
     res.send(`
         <p>Host: ${req.hostname}</p>
-        <p>IP: ${getIP(req)}</p>
+        <p>IP: ${ip}</p>
         <p>Path: ${req.path}</p>
         <p>Method: ${req.method}</p>
         <p>Agent: ${req.header('user-agent')}</p>
