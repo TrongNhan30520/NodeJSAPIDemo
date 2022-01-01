@@ -5,8 +5,7 @@ const app = express()
 let port = process.env.PORT || 3000
 
 var getIP = function(req) {
-    ipAddr = req.headers["x-forwarded-for"];
-    console.log(ipAddr);
+    ipAddr = req.header('x-forwarded-for');
     if (ipAddr){
     var list = ipAddr.split(",")[list.length-1];
     ipAddr = list;
