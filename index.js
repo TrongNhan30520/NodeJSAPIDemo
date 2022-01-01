@@ -15,7 +15,23 @@ app.get("/", (req, res) => {
 })
 
 app.get("/data", (req, res) => {
-    res.send(importData)
+    var name_search = req.query.name
+    var n = req.query.n
+    if(n != undefined)
+    {
+        var result = importData.slice(0,n)
+        res.send(result)
+    }
+    else if(name_search !== undefined)
+    {
+        var result = importData.filter((data) => {
+            return data.last_name.toLowerCase().indexOf(name_search.toLowerCase()) !== -1
+        })
+        res.send(result)
+    } else {
+        res.send(importData)
+    }
+    
 })
 
 app.get("/data1", (req, res) => {
