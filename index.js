@@ -24,7 +24,7 @@ let port = process.env.PORT || 3000
         <p>Method: ${req.method}</p>
         <p>Agent: ${req.header('user-agent')}</p>
         <p>IP: ${ip}</p>
-        <p>Datail IP Address : ${detail}</p>
+        <p>Datail IP Address : ${[JSON.stringify(detail)]}</p>
     `)
 })
 
