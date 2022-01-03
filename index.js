@@ -1,6 +1,7 @@
 const express = require('express')
 const importData = require("./data.json")
 const importData1 = require("./data1.json")
+const  satelize = require('satelize')
 const app = express()
 let port = process.env.PORT || 3000
 
@@ -11,13 +12,19 @@ let port = process.env.PORT || 3000
          req.socket.remoteAddress || 
          req.connection.socket.remoteAddress
 
-    console.log(ip);
+    var detail = null
+
+    satelize.satelize({ip: `${ip}`}, function(err,payload){
+        detail = payload
+        console.log(payload)
+    })
     res.send(`
         <p>Host: ${req.hostname}</p>
-        <p>IP: ${ip}</p>
         <p>Path: ${req.path}</p>
         <p>Method: ${req.method}</p>
         <p>Agent: ${req.header('user-agent')}</p>
+        <p>IP: ${ip}</p>
+        <p>Datail IP Address : ${detail}</p>
     `)
 })
 
